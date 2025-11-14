@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .certificate {
+            width: 297mm;
+            height: 210mm;
+            position: relative;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            padding: 8mm;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .cert-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #fdfcfb 0%, #ffffff 50%, #e2d1c3 100%);
+            border-radius: 25px;
+            padding: 30px 45px;
+            border: 3px solid #8b7355;
+            box-shadow: 
+                inset 0 0 40px rgba(0,0,0,0.05),
+                0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .border-design {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1.5px solid rgba(139, 115, 85, 0.4);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        /* Corner decorations - smaller */
+        .corner {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+        }
+
+        .corner::before,
+        .corner::after {
+            content: '';
+            position: absolute;
+            background: #8b7355;
+        }
+
+        .corner-tl {
+            top: 20px;
+            left: 20px;
+        }
+
+        .corner-tl::before {
+            width: 3px;
+            height: 50px;
+            top: 0;
+            left: 0;
+        }
+
+        .corner-tl::after {
+            width: 50px;
+            height: 3px;
+            top: 0;
+            left: 0;
+        }
+
+        .corner-tr {
+            top: 20px;
+            right: 20px;
+        }
+
+        .corner-tr::before {
+            width: 3px;
+            height: 50px;
+            top: 0;
+            right: 0;
+        }
+
+        .corner-tr::after {
+            width: 50px;
+            height: 3px;
+            top: 0;
+            right: 0;
+        }
+
+        .corner-bl {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .corner-bl::before {
+            width: 3px;
+            height: 50px;
+            bottom: 0;
+            left: 0;
+        }
+
+        .corner-bl::after {
+            width: 50px;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+        }
+
+        .corner-br {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .corner-br::before {
+            width: 3px;
+            height: 50px;
+            bottom: 0;
+            right: 0;
+        }
+
+        .corner-br::after {
+            width: 50px;
+            height: 3px;
+            bottom: 0;
+            right: 0;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .logo {
+            width: 600px;
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+        }
+
+        .cert-title {
+            text-align: center;
+            color: #0f2027;
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 4px;
+        }
+
+        .cert-subtitle {
+            text-align: center;
+            color: #203a43;
+            font-size: 20px;
+            letter-spacing: 4px;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #8b7355, transparent);
+            margin: 0 auto 18px;
+        }
+
+        .cert-text {
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .name-section {
+            text-align: center;
+            margin: 18px 0;
+        }
+
+        .name-box {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, rgba(139, 115, 85, 0.08) 0%, rgba(139, 115, 85, 0.15) 100%);
+            border-radius: 40px;
+            border: 2px solid rgba(139, 115, 85, 0.3);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.15);
+            min-width: 400px;
+        }
+
+        .student-name {
+            font-size: 42px;
+            font-weight: bold;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .name-underline {
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d4a574, transparent);
+            margin: 8px auto 0;
+        }
+
+        .message-section {
+            margin: 20px auto;
+            max-width: 90%;
+        }
+
+        .custom-message {
+            text-align: center;
+            color: #b8405e;
+            font-size: 17px;
+            line-height: 1.6;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(184, 64, 94, 0.1);
+            padding: 0 20px;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 25px;
+            padding: 0 50px;
+        }
+
+        .sig-box {
+            text-align: center;
+            width: 180px;
+        }
+
+        .sig-container {
+            width: 180px;
+            height: 65px;
+            background: linear-gradient(135deg, rgba(32, 58, 67, 0.03) 0%, rgba(32, 58, 67, 0.08) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 8px rgba(32, 58, 67, 0.12);
+            border: 1.5px solid rgba(32, 58, 67, 0.15);
+        }
+
+        .sig-img {
+            max-width: 170px;
+            max-height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(32, 58, 67, 0.2));
+        }
+
+        .sig-line {
+            width: 180px;
+            height: 1.5px;
+            background: #333;
+            margin: 0 auto 6px;
+        }
+
+        .faculty-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 3px;
+        }
+
+        .faculty-des {
+            font-size: 12px;
+            color: #555;
+            font-style: italic;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding: 0 50px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .date-info {
+            font-style: italic;
+        }
+
+        .cert-id {
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .mini-seal {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #8b7355;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: bold;
+            color: #8b7355;
+            background: radial-gradient(circle, #fdfcfb 0%, #e2d1c3 100%);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .certificate {
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+
+        /* Responsive for web display */
+        @media screen and (max-width: 1200px) {
+            .certificate {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 297 / 210;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .certificate {
+                padding: 5mm;
+            }
+            
+            .cert-inner {
+                padding: 20px 25px;
+            }
+            
+            .cert-title {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+            
+            .cert-subtitle {
+                font-size: 16px;
+            }
+            
+            .student-name {
+                font-size: 28px;
+            }
+            
+            .custom-message {
+                font-size: 14px;
+            }
+            
+            .signatures {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 20px;
+            }
+            
+            .sig-box {
+                width: 100%;
+            }
+            
+            .sig-container {
+                width: 100%;
+            }
+            
+            .sig-line {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="cert-inner">
+            <div class="border-design"></div>
+            
+            <!-- Smaller corner decorations -->
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+            
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <img src="SGP-Project-sem-5\public\charusatlogo.png" alt="Logo" class="logo">
+            </div>
+            
+            <!-- Title -->
+            <div class="cert-title">CERTIFICATE</div>
+            <div class="cert-subtitle">OF PARTICIPATION</div>
+            <div class="divider"></div>
+            
+            <!-- Intro Text -->
+            <div class="cert-text">This certificate is proudly presented to</div>
+            
+            <!-- Student Name -->
+            <div class="name-section">
+                <div class="name-box">
+                    <div class="student-name" id="studentName">{{STUDENT_NAME}}</div>
+                </div>
+                <div class="name-underline"></div>
+            </div>
+            
+            <!-- Custom Message (More space for long text) -->
+            <div class="message-section">
+                    <div class="custom-message" id="customMessage">
+                    {{CUSTOM_MESSAGE}}
+                </div>
+            </div>
+            
+            <!-- Signatures Section (Compact) -->
+            <div class="signatures">
+                <div class="sig-box">
+                    <div class="sig-container">
+                        <img src="" alt="Signature 1" id="signature1" class="sig-img" style="display:none;">
+                    </div>
+                    <div class="sig-line"></div>
+                    <div class="faculty-name">{{FACULTY_1_NAME}}</div>
+                    <div class="faculty-des">{{FACULTY_1_DESIGNATION}}</div>
+                </div>
+                
+            
+                <div class="sig-box">
+                    <div class="sig-container">
+                        <img src="" alt="Signature 2" id="signature2" class="sig-img" style="display:none;">
+                    </div>
+                    <div class="sig-line"></div>
+                    <div class="faculty-name">{{FACULTY_2_NAME}}</div>
+                    <div class="faculty-des">{{FACULTY_2_DESIGNATION}}</div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            
+        </div>
+    </div>
+</body>
+</html>

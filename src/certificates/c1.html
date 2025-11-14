@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            background: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .certificate-container {
+            width: 1056px;
+            height: 816px;
+            background: white;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            .certificate-container {
+                box-shadow: none;
+                width: 1056px;
+                height: 816px;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+
+        /* Background Waves */
+        .wave-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(135deg, #1e303b 0%, #3d7fa6 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+            z-index: 1;
+        }
+
+        .wave-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(135deg, #2c5f7f 0%, #3d7fa6 100%);
+            clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 100%);
+            z-index: 1;
+        }
+
+        .wave-accent-top {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(90deg, #f4d19b 0%, #e6c58a 100%);
+            clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%);
+            z-index: 2;
+        }
+
+        .wave-accent-bottom {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(90deg, #e6c58a 0%, #f4d19b 100%);
+            clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 70%);
+            z-index: 2;
+        }
+
+        /* Corner Decorations */
+        .corner-decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            z-index: 3;
+        }
+
+        .corner-top-right {
+            top: 50px;
+            right: 50px;
+            border-top: 3px solid #d4af37;
+            border-right: 3px solid #d4af37;
+        }
+
+        .corner-bottom-left {
+            bottom: 50px;
+            left: 50px;
+            border-bottom: 3px solid #d4af37;
+            border-left: 3px solid #d4af37;
+        }
+
+        /* Gold Medal/Badge */
+        .medal {
+            position: absolute;
+            top: 120px;
+            left: 80px;
+            width: 100px;
+            height: 140px;
+            z-index: 5;
+        }
+
+        .medal-circle {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #f4d03f 0%, #c9a227 100%);
+            border-radius: 50%;
+            border: 4px solid #b8941f;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .medal-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: conic-gradient(from 45deg, #f4d03f, #e6c029, #f4d03f);
+            border-radius: 50%;
+        }
+
+        .medal-ribbon {
+            width: 40px;
+            height: 60px;
+            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+        }
+
+        /* Main Content */
+            .content {
+                position: relative;
+                z-index: 4;
+                padding: 100px 60px 60px 60px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }        /* University Logo Section */
+        .logo-section {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 180px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            z-index: 10;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
+
+        .university-logo {
+            width: 90%;
+            max-width: 900px;
+            height: auto;
+            object-fit: contain;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+
+        /* Certificate Title */
+        .certificate-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .title-main {
+                font-size: 52px;
+                font-weight: bold;
+                color: #2c5f7f;
+                letter-spacing: 6px;
+                margin-bottom: 3px;
+            }        .title-sub {
+            font-size: 22px;
+            color: #2c5f7f;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Presented To Section */
+        .presented-text {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Student Name Section - YELLOW CIRCLE */
+        .student-name-section {
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .student-name {
+            font-size: 40px;
+            font-weight: bold;
+            color: #2c5f7f;
+            font-family: 'Brush Script MT', cursive;
+            padding: 8px 30px;
+            border-bottom: 3px solid #2c5f7f;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        /* Custom Message Section - RED CIRCLE */
+        .message-section {
+            text-align: center;
+            margin: 20px auto 30px;
+            max-width: 750px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-message {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            font-style: italic;
+        }
+
+        /* Signatures Section */
+            .signatures-section {
+                display: flex;
+                justify-content: center;
+                gap: 100px;
+                margin-top: 40px;
+                padding: 0 40px;
+                width: 100%;
+            }        .signature-block {
+            text-align: center;
+            width: 280px;
+        }
+
+        /* Faculty Signature Image - BLUE CIRCLE */
+        .signature-image {
+            height: 60px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signature-image img {
+            max-width: 200px;
+            max-height: 60px;
+            object-fit: contain;
+        }
+
+        .signature-line {
+            width: 100%;
+            height: 2px;
+            background: #333;
+            margin-bottom: 8px;
+        }
+
+        /* Faculty Name and Designation - BLACK CIRCLES */
+        .faculty-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5f7f;
+            margin-bottom: 5px;
+        }
+
+        .faculty-designation {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Auto Font Size Adjustment Classes */
+        .auto-size-xl {
+            font-size: 48px;
+        }
+
+        .auto-size-lg {
+            font-size: 40px;
+        }
+
+        .auto-size-md {
+            font-size: 32px;
+        }
+
+        .auto-size-sm {
+            font-size: 26px;
+        }
+
+        .auto-size-xs {
+            font-size: 22px;
+        }
+
+        .message-xl {
+            font-size: 20px;
+        }
+
+        .message-lg {
+            font-size: 18px;
+        }
+
+        .message-md {
+            font-size: 16px;
+        }
+
+        .message-sm {
+            font-size: 14px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .certificate-container {
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container" id="certificate">
+        <!-- Background Waves -->
+        <div class="wave-top"></div>
+        <div class="wave-bottom"></div>
+        <div class="wave-accent-top"></div>
+        <div class="wave-accent-bottom"></div>
+
+        <!-- Corner Decorations -->
+        <div class="corner-decoration corner-top-right"></div>
+        <div class="corner-decoration corner-bottom-left"></div>
+
+        <!-- Gold Medal/Badge -->
+        <div class="medal">
+            <div class="medal-circle"></div>
+            <div class="medal-ribbon"></div>
+        </div>
+
+        <!-- University Logo Section (CHARUSAT LOGO) -->
+        <div class="logo-section">
+            <img src="${charusatLogo}" alt="CHARUSAT Logo" class="university-logo" id="universityLogo">
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Certificate Title -->
+            <div class="certificate-title">
+                <div class="title-main">CERTIFICATE</div>
+                <div class="title-sub">OF PARTICIPATION</div>
+            </div>
+
+            <!-- Presented To -->
+            <div class="presented-text">
+                This certificate is proudly presented to
+            </div>
+
+            <!-- Student Name Section (YELLOW CIRCLE AREA) -->
+            <div class="student-name-section">
+                <div class="student-name auto-size-xl" id="studentName">
+                    {{STUDENT_NAME}}
+                </div>
+            </div>
+
+            <!-- Custom Message Section (RED CIRCLE AREA) -->
+            <div class="message-section">
+                <div class="custom-message message-xl" id="customMessage">
+                    {{CUSTOM_MESSAGE}}
+                </div>
+            </div>
+
+            <!-- Signatures Section -->
+            <div class="signatures-section">
+                <!-- Faculty 1 (LEFT SIDE) -->
+                <div class="signature-block">
+                    <!-- Faculty 1 Signature Image (BLUE CIRCLE - LEFT) -->
+                    <div class="signature-image" id="signature1Container">
+                        <img src="" alt="Signature 1" id="signature1" style="display:none;">
+                    </div>
+                    <div class="signature-line"></div>
+                    <!-- Faculty 1 Name (BLACK CIRCLE - LEFT TOP) -->
+                    <div class="faculty-name" id="faculty1Name">{{FACULTY_1_NAME}}</div>
+                    <!-- Faculty 1 Designation (BLACK CIRCLE - LEFT BOTTOM) -->
+                    <div class="faculty-designation" id="faculty1Designation">{{FACULTY_1_DESIGNATION}}</div>
+                </div>
+
+                <!-- Faculty 2 (RIGHT SIDE) -->
+                <div class="signature-block">
+                    <!-- Faculty 2 Signature Image (BLUE CIRCLE - RIGHT) -->
+                    <div class="signature-image" id="signature2Container">
+                        <img src="" alt="Signature 2" id="signature2" style="display:none;">
+                    </div>
+                    <div class="signature-line"></div>
+                    <!-- Faculty 2 Name (BLACK CIRCLE - RIGHT TOP) -->
+                    <div class="faculty-name" id="faculty2Name">{{FACULTY_2_NAME}}</div>
+                    <!-- Faculty 2 Designation (BLACK CIRCLE - RIGHT BOTTOM) -->
+                    <div class="faculty-designation" id="faculty2Designation">{{FACULTY_2_DESIGNATION}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate and adjust font size based on text length
+        function adjustFontSize(elementId, text, maxLength) {
+            const element = document.getElementById(elementId);
+            const length = text.length;
+            
+            // Remove all size classes
+            element.classList.remove('auto-size-xl', 'auto-size-lg', 'auto-size-md', 'auto-size-sm', 'auto-size-xs');
+            
+            // Apply appropriate size class based on length
+            if (length <= 20) {
+                element.classList.add('auto-size-xl');
+            } else if (length <= 30) {
+                element.classList.add('auto-size-lg');
+            } else if (length <= 40) {
+                element.classList.add('auto-size-md');
+            } else if (length <= 50) {
+                element.classList.add('auto-size-sm');
+            } else {
+                element.classList.add('auto-size-xs');
+            }
+        }
+
+        // Function to adjust message font size
+        function adjustMessageSize(text) {
+            const element = document.getElementById('customMessage');
+            const length = text.length;
+            
+            element.classList.remove('message-xl', 'message-lg', 'message-md', 'message-sm');
+            
+            if (length <= 100) {
+                element.classList.add('message-xl');
+            } else if (length <= 150) {
+                element.classList.add('message-lg');
+            } else if (length <= 200) {
+                element.classList.add('message-md');
+            } else {
+                element.classList.add('message-sm');
+            }
+        }
+
+        // Function to populate certificate data
+        function populateCertificate(data) {
+            // Set student name (YELLOW CIRCLE)
+            if (data.studentName) {
+                const studentNameElement = document.getElementById('studentName');
+                studentNameElement.textContent = data.studentName;
+                adjustFontSize('studentName', data.studentName);
+            }
+
+            // Set custom message (RED CIRCLE)
+            if (data.customMessage) {
+                const messageElement = document.getElementById('customMessage');
+                messageElement.textContent = data.customMessage;
+                adjustMessageSize(data.customMessage);
+            }
+
+            // Set faculty 1 signature (BLUE CIRCLE - LEFT)
+            if (data.signature1) {
+                const sig1 = document.getElementById('signature1');
+                sig1.src = data.signature1;
+                sig1.style.display = 'block';
+            }
+
+            // Set faculty 1 name (BLACK CIRCLE - LEFT TOP)
+            if (data.faculty1Name) {
+                document.getElementById('faculty1Name').textContent = data.faculty1Name;
+            }
+
+            // Set faculty 1 designation (BLACK CIRCLE - LEFT BOTTOM)
+            if (data.faculty1Designation) {
+                document.getElementById('faculty1Designation').textContent = data.faculty1Designation;
+            }
+
+            // Set faculty 2 signature (BLUE CIRCLE - RIGHT)
+            if (data.signature2) {
+                const sig2 = document.getElementById('signature2');
+                sig2.src = data.signature2;
+                sig2.style.display = 'block';
+            }
+
+            // Set faculty 2 name (BLACK CIRCLE - RIGHT TOP)
+            if (data.faculty2Name) {
+                document.getElementById('faculty2Name').textContent = data.faculty2Name;
+            }
+
+            // Set faculty 2 designation (BLACK CIRCLE - RIGHT BOTTOM)
+            if (data.faculty2Designation) {
+                document.getElementById('faculty2Designation').textContent = data.faculty2Designation;
+            }
+        }
+
+        // Example usage - Replace with your actual data from Excel
+        // This would be called when generating certificates
+        /*
+        populateCertificate({
+            studentName: "John Doe",
+            customMessage: "Has successfully completed the Web Development Bootcamp with outstanding performance and dedication to learning modern web technologies.",
+            signature1: "path/to/signature1.png",
+            faculty1Name: "Dr. Sarah Johnson",
+            faculty1Designation: "Course Instructor",
+            signature2: "path/to/signature2.png",
+            faculty2Name: "Prof. Michael Smith",
+            faculty2Designation: "Program Director"
+        });
+        */
+
+        // For testing - you can uncomment this
+        // populateCertificate({
+        //     studentName: "Alexandra Rodriguez Martinez",
+        //     customMessage: "Has successfully completed the Advanced Web Development and Modern JavaScript Framework Course with exceptional dedication, outstanding performance, and remarkable commitment to excellence in learning.",
+        //     signature1: "signature1.png",
+        //     faculty1Name: "Dr. Sarah Johnson",
+        //     faculty1Designation: "Senior Professor",
+        //     signature2: "signature2.png",
+        //     faculty2Name: "Prof. Michael Smith",
+        //     faculty2Designation: "Department Head"
+        // });
+    </script>
+</body>
+</html>

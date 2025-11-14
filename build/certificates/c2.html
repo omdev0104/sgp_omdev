@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHARUSAT Certificate</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Cinzel:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .certificate-container {
+            width: 297mm;
+            height: 210mm;
+            background: white;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Green Geometric Left Section */
+        .green-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(135deg, #0d5e4a 0%, #1a7a5e 50%, #0d5e4a 100%);
+            clip-path: polygon(0 0, 100% 0, 70% 50%, 100% 100%, 0 100%);
+            z-index: 1;
+        }
+
+        /* Diagonal geometric patterns */
+        .green-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, transparent 0%, transparent 45%, rgba(255,255,255,0.05) 50%, transparent 55%, transparent 100%),
+                linear-gradient(45deg, transparent 0%, transparent 45%, rgba(0,0,0,0.1) 50%, transparent 55%, transparent 100%);
+            background-size: 100px 100px;
+        }
+
+        /* Gold Medal Badge */
+        .medal-badge {
+            position: absolute;
+            top: 50%;
+            left: 15%;
+            transform: translateY(-50%);
+            width: 180px;
+            height: 180px;
+            z-index: 5;
+        }
+
+        .medal-outer {
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, #f4d03f 0%, #d4af37 50%, #c9a227 100%);
+            border-radius: 50%;
+            border: 8px solid #b8941f;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 5px 15px rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .medal-inner {
+            width: 120px;
+            height: 120px;
+            background: 
+                conic-gradient(from 45deg, #f4d03f, #e6c029, #f4d03f, #d4af37, #f4d03f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .medal-star {
+            font-size: 50px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .laurel-left, .laurel-right {
+            position: absolute;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .laurel-left {
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .laurel-right {
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Main Content Area */
+        .content-area {
+            position: absolute;
+            left: 38%;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 30px 50px;
+            background: #f9f9f7;
+            z-index: 2;
+        }
+
+        /* University Header Logo */
+        .university-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+
+        .main-logo {
+            max-width: 600px;
+            max-height: 70px;
+            object-fit: contain;
+        }
+
+        /* Golden Laurel Wreath */
+        .laurel-wreath {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .wreath-icon {
+            font-size: 50px;
+            color: #d4af37;
+        }
+
+        /* Certificate Title */
+        .certificate-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title-main {
+            font-family: 'Cinzel', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #0d5e4a;
+            letter-spacing: 12px;
+            margin-bottom: 5px;
+        }
+
+        .title-sub {
+            font-size: 24px;
+            color: #0d5e4a;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Presented To */
+        .presented-text {
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Student Name Section */
+        .student-name-section {
+            text-align: center;
+            margin-bottom: 35px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .student-name {
+            font-family: 'Cinzel', serif;
+            color: #1a1a1a;
+            font-weight: 600;
+            padding: 10px 40px;
+            border-bottom: 3px solid #d4af37;
+            display: inline-block;
+            line-height: 1.3;
+            font-size: clamp(28px, 3.5vw, 44px);
+        }
+
+        /* Custom Message Section */
+        .message-section {
+            text-align: center;
+            margin: 30px auto 40px;
+            max-width: 600px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-message {
+            line-height: 1.8;
+            color: #444;
+            font-size: clamp(14px, 1.6vw, 18px);
+        }
+
+        /* Signatures Section */
+        .signatures-section {
+            display: flex;
+            justify-content: space-around;
+            gap: 80px;
+            margin-top: 25px;
+            padding: 0 20px;
+        }
+
+        .signature-block {
+            text-align: center;
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .signature-image-wrapper {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .signature-image {
+            max-width: 160px;
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        .signature-line {
+            width: 100%;
+            height: 2px;
+            background: #c9a227;
+            margin-bottom: 8px;
+        }
+
+        .faculty-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .faculty-designation {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        /* Decorative Elements */
+        .decorative-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 15px 0;
+        }
+
+        /* Auto-sizing classes */
+        .student-name.long-name {
+            font-size: 36px;
+        }
+
+        .student-name.very-long-name {
+            font-size: 30px;
+        }
+
+        .custom-message.long-message {
+            font-size: 15px;
+        }
+
+        .custom-message.very-long-message {
+            font-size: 13px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .certificate-container {
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 1200px) {
+            .certificate-container {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 297 / 210;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <!-- Green Geometric Left Section -->
+        <div class="green-section"></div>
+
+        <!-- Gold Medal Badge -->
+        <div class="medal-badge">
+            <div class="medal-outer">
+                <div class="laurel-left">🌿</div>
+                <div class="medal-inner">
+                    <div class="medal-star">⭐</div>
+                </div>
+                <div class="laurel-right">🌿</div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <!-- University Header with Logos -->
+            <div class="university-header">
+                <div class="logo-container">
+                    <!-- Main University Logo (CHARUSAT) -->
+                    <img src="SGP-Project-sem-5\public\charusatlogo.png" alt="CHARUSAT Logo" class="main-logo">
+                    
+                    <!-- Accreditation Badges -->
+                
+                </div>
+            </div>
+
+            <!-- Golden Laurel Wreath -->
+            <div class="laurel-wreath">
+                <div class="wreath-icon">🏆</div>
+            </div>
+
+            <!-- Certificate Title -->
+            <div class="certificate-title">
+                <div class="title-main">CERTIFICATE</div>
+                <div class="title-sub">OF APPRECIATION</div>
+            </div>
+
+            <!-- Presented To -->
+            <div class="presented-text">
+                Proudly presented to :
+            </div>
+
+            <!-- Student Name -->
+            <div class="student-name-section">
+                <div class="student-name" id="studentName">{{STUDENT_NAME}}</div>
+            </div>
+
+            <div class="decorative-line"></div>
+
+            <!-- Custom Message -->
+            <div class="message-section">
+                <div class="custom-message" id="customMessage">{{CUSTOM_MESSAGE}}</div>
+            </div>
+
+            <!-- Signatures -->
+            <div class="signatures-section">
+                <!-- Faculty 1 -->
+                <div class="signature-block">
+                    <div class="signature-image-wrapper">
+                        <img src="" alt="Signature 1" id="signature1" class="signature-image" style="display:none;">
+                    </div>
+                    <div class="signature-line"></div>
+                    <div class="faculty-name">{{FACULTY_1_NAME}}</div>
+                    <div class="faculty-designation">{{FACULTY_1_DESIGNATION}}</div>
+                </div>
+
+                <!-- Faculty 2 -->
+                <div class="signature-block">
+                    <div class="signature-image-wrapper">
+                        <img src="" alt="Signature 2" id="signature2" class="signature-image" style="display:none;">
+                    </div>
+                    <div class="signature-line"></div>
+                    <div class="faculty-name">{{FACULTY_2_NAME}}</div>
+                    <div class="faculty-designation">{{FACULTY_2_DESIGNATION}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic font sizing based on text length
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentNameElement = document.getElementById('studentName');
+            const customMessageElement = document.getElementById('customMessage');
+
+            function adjustStudentNameSize() {
+                const textLength = studentNameElement.textContent.length;
+                studentNameElement.classList.remove('long-name', 'very-long-name');
+                
+                if (textLength > 25 && textLength <= 40) {
+                    studentNameElement.classList.add('long-name');
+                } else if (textLength > 40) {
+                    studentNameElement.classList.add('very-long-name');
+                }
+            }
+
+            function adjustMessageSize() {
+                const textLength = customMessageElement.textContent.length;
+                customMessageElement.classList.remove('long-message', 'very-long-message');
+                
+                if (textLength > 120 && textLength <= 200) {
+                    customMessageElement.classList.add('long-message');
+                } else if (textLength > 200) {
+                    customMessageElement.classList.add('very-long-message');
+                }
+            }
+
+            adjustStudentNameSize();
+            adjustMessageSize();
+
+            const observer = new MutationObserver(function() {
+                adjustStudentNameSize();
+                adjustMessageSize();
+            });
+
+            observer.observe(studentNameElement, { childList: true, characterData: true, subtree: true });
+            observer.observe(customMessageElement, { childList: true, characterData: true, subtree: true });
+        });
+
+        // Function to populate certificate
+        function populateCertificate(data) {
+            document.getElementById('studentName').textContent = data.student_name || '{{student_name}}';
+            document.getElementById('customMessage').textContent = data.subject_message || '{{subject_message}}';
+            
+            if (data.signature1) {
+                document.querySelector('.signature-block:nth-child(1) .signature-image').src = data.signature1;
+            }
+            if (data.signature2) {
+                document.querySelector('.signature-block:nth-child(2) .signature-image').src = data.signature2;
+            }
+            
+            if (data.faculty1_name) {
+                document.querySelector('.signature-block:nth-child(1) .faculty-name').textContent = data.faculty1_name;
+            }
+            if (data.faculty1_designation) {
+                document.querySelector('.signature-block:nth-child(1) .faculty-designation').textContent = data.faculty1_designation;
+            }
+            if (data.faculty2_name) {
+                document.querySelector('.signature-block:nth-child(2) .faculty-name').textContent = data.faculty2_name;
+            }
+            if (data.faculty2_designation) {
+                document.querySelector('.signature-block:nth-child(2) .faculty-designation').textContent = data.faculty2_designation;
+            }
+        }
+
+        // Example usage (uncomment to test):
+        /*
+        populateCertificate({
+            student_name: "Dr. Rajesh Kumar Sharma",
+            subject_message: "For outstanding contribution and exceptional performance in the field of Computer Science and Engineering, demonstrating excellence in research and academic pursuits.",
+            signature1: "./assets/signature1.png",
+            faculty1_name: "Dr. Atul Patel",
+            faculty1_designation: "President, CHARUSAT",
+            signature2: "./assets/signature2.png",
+            faculty2_name: "Prof. Devang Joshi",
+            faculty2_designation: "Provost"
+        });
+        */
+    </script>
+</body>
+</html>
